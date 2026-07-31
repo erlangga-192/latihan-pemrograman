@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="calculator-container">
+        <!-- Header & Navigasi Mode -->
+        <div class="calc-header">
+            <span class="logo">CALCULATOR</span>
+            <div class="mode-toggle">
+                <button id="btn-standard" class="active" onclick="toggleMode('standard')">Standar</button>
+                <button id="btn-scientific" onclick="toggleMode('scientific')">Sains</button>
+            </div>
+        </div>
+
+        <!-- Layar Display -->
+        <div class="display-container">
+            <div id="history-display" class="history-display"></div>
+            <div id="main-display" class="main-display">0</div>
+        </div>
+
+        <!-- Layout Utama: Tombol + Panel Riwayat -->
+        <div class="main-body">
+            
+            <!-- Panel Tombol Ilmiah (Tersembunyi secara default) -->
+            <div id="scientific-pad" class="keypad scientific-pad hidden">
+                <button class="btn sci" onclick="appendMath('sin(')">sin</button>
+                <button class="btn sci" onclick="appendMath('cos(')">cos</button>
+                <button class="btn sci" onclick="appendMath('tan(')">tan</button>
+                <button class="btn sci" onclick="appendMath('√(')">√</button>
+                <button class="btn sci" onclick="appendMath('log(')">log</button>
+                <button class="btn sci" onclick="appendMath('ln(')">ln</button>
+                <button class="btn sci" onclick="appendOperator('^')">x^y</button>
+                <button class="btn sci" onclick="appendMath('π')">π</button>
+                <button class="btn sci" onclick="appendMath('e')">e</button>
+                <button class="btn sci" onclick="appendMath('(')">(</button>
+                <button class="btn sci" onclick="appendMath(')')">)</button>
+                <button class="btn sci" onclick="appendMath('!')">x!</button>
+            </div>
+
+            <!-- Panel Tombol Standar -->
+            <div class="keypad standard-pad">
+                <button class="btn func" onclick="clearAll()">AC</button>
+                <button class="btn func" onclick="deleteChar()"><i class="fa-solid fa-backspace"></i></button>
+                <button class="btn func" onclick="appendOperator('%')">%</button>
+                <button class="btn op" onclick="appendOperator('÷')">÷</button>
+
+                <button class="btn num" onclick="appendNumber('7')">7</button>
+                <button class="btn num" onclick="appendNumber('8')">8</button>
+                <button class="btn num" onclick="appendNumber('9')">9</button>
+                <button class="btn op" onclick="appendOperator('×')">×</button>
+
+                <button class="btn num" onclick="appendNumber('4')">4</button>
+                <button class="btn num" onclick="appendNumber('5')">5</button>
+                <button class="btn num" onclick="appendNumber('6')">6</button>
+                <button class="btn op" onclick="appendOperator('-')">-</button>
+
+                <button class="btn num" onclick="appendNumber('1')">1</button>
+                <button class="btn num" onclick="appendNumber('2')">2</button>
+                <button class="btn num" onclick="appendNumber('3')">3</button>
+                <button class="btn op" onclick="appendOperator('+')">+</button>
+
+                <button class="btn num" onclick="toggleSign()">±</button>
+                <button class="btn num" onclick="appendNumber('0')">0</button>
+                <button class="btn num" onclick="appendNumber('.')">.</button>
+                <button class="btn equal" onclick="calculate()">=</button>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Riwayat Perhitungan -->
+        <div class="history-panel">
+            <div class="history-header">
+                <span>Riwayat</span>
+                <button onclick="clearHistoryList()" class="clear-hist-btn"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <ul id="history-list" class="history-list">
+                <li class="empty-msg">Belum ada riwayat</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
