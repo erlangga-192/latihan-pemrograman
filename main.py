@@ -1,0 +1,1 @@
+print("Hello world! my name is Erlangga, aspiring software engineer")
