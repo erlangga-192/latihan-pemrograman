@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Weather App</title>
+    <!-- Google Fonts Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="weather-card" id="weather-card">
+        <!-- Form Pencarian Kota -->
+        <div class="search-box">
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" id="city-input" placeholder="Cari nama kota (misal: Jakarta)..." autocomplete="off">
+            <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+   
+        <!-- State Loading / Error -->
+        <div id="status-message" class="status-message hidden">
+            <p id="status-text"></p>
+        </div>
+     
+        <!-- Display Informasi Cuaca -->
+        <div id="weather-info" class="weather-info">
+            <div class="weather-icon-box">
+                <i id="weather-icon" class="fa-solid fa-sun"></i>
+            </div>
+            
+            <h1 id="temperature">--°C</h1>
+            <p id="weather-desc" class="weather-desc">Memuat data...</p>
+            <h2 id="city-name" class="city-name">--</h2>
+
+            <!-- Rincian Detail Tambahan -->
+            <div class="weather-details">
+                <div class="col">
+                    <i class="fa-solid fa-droplet"></i>
+                    <div>
+                        <p id="humidity">--%</p>
+                        <span>Kelembapan</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="fa-solid fa-wind"></i>
+                    <div>
+                        <p id="wind-speed">-- km/j</p>
+                        <span>Angin</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="fa-solid fa-temperature-three-quarters"></i>
+                    <div>
+                        <p id="feels-like">--°C</p>
+                        <span>Terasa</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="fa-solid fa-sun"></i>
+                    <div>
+                        <p id="uv-index">--</p>
+                        <span>Indeks UV</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pastikan penulisan data-city seperti ini -->
+<div class="quick-cities">
+    <button class="city-chip" data-city="Jakarta">Jakarta</button>
+    <button class="city-chip" data-city="Bandung">Bandung</button>
+    <button class="city-chip" data-city="Tokyo">Tokyo</button>
+    <button class="city-chip" data-city="London">London</button>
+</div>
+        </div>
+    </div>
+
+    <!-- Pemanggilan script HARUS di paling bawah sebelum </body>
+    <script src="script.js"></script>
+</body>
+</html>
