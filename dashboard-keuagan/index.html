@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard</title>
+    <!-- Font & Icon External -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Hubungkan File CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Finance Tracker</h1>
+                <p>Monitor pemasukan dan pengeluaran secara visual</p>
+            </div>
+        </div>
+
+        <!-- Cards Ringkasan -->
+        <div class="cards-grid">
+            <div class="card balance">
+                <div class="card-info">
+                    <h3>Sisa Saldo</h3>
+                    <p id="total-balance">Rp 0</p>
+                </div>
+                <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
+            </div>
+            <div class="card income">
+                <div class="card-info">
+                    <h3>Pemasukan</h3>
+                    <p id="total-income" class="amount">Rp 0</p>
+                </div>
+                <div class="card-icon"><i class="fa-solid fa-arrow-down"></i></div>
+            </div>
+            <div class="card expense">
+                <div class="card-info">
+                    <h3>Pengeluaran</h3>
+                    <p id="total-expense" class="amount">Rp 0</p>
+                </div>
+                <div class="card-icon"><i class="fa-solid fa-arrow-up"></i></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Form Input Transaksi -->
+            <div class="panel">
+                <h2 class="panel-title">Tambah Transaksi</h2>
+                <form id="tx-form" class="form-group">
+                    <input type="text" id="desc" class="input-field" placeholder="Keterangan (misal: Gaji, Makan, Kopi)" required autocomplete="off">
+                    <input type="number" id="amount" class="input-field" placeholder="Jumlah Nominal (Rp)" required min="1">
+                    <select id="type" class="input-field">
+                        <option value="income">Pemasukan (+)</option>
+                        <option value="expense">Pengeluaran (-)</option>
+                    </select>
+                    <button type="submit" class="btn-submit">Simpan Transaksi</button>
+                </form>
+            </div>
+
+            <!-- Grafik Donat (Chart.js) -->
+            <div class="panel">
+                <h2 class="panel-title">Alokasi Keuangan</h2>
+                <div class="chart-container">
+                    <canvas id="financeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Riwayat Transaksi -->
+        <div class="panel">
+            <h2 class="panel-title">Riwayat Transaksi</h2>
+            <ul id="tx-list" class="transaction-list"></ul>
+        </div>
+    </div>
+
+    <!-- Hubungkan File JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
