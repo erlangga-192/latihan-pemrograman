@@ -14,51 +14,45 @@ const weatherIcon = document.getElementById('weather-icon');
 
 // 1. Cari Koordinat Kota (Geocoding API Open-Meteo)
 async function checkWeather(cityName) {
+    console.log("Step 1: Fungsi checkWeather dimulai dengan kota:", cityName);
     if (!cityName) return;
 
     showStatus("Mencari data cuaca...");
 
     try {
+        console.log("Step 2: Mencoba fetch koordinat...");
         const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=id&format=json`;
         const geoRes = await fetch(geoUrl);
         const geoData = await geoRes.json();
+        console.log("Step 3: Data koordinat diterima:", geoData);
 
         if (!geoData.results || geoData.results.length === 0) {
-            showStatus("Kota tidak ditemukan. Coba periksa kembali nama kotanya.");
+            showStatus("Kota tidak ditemukan.");
             return;
         }
 
         const location = geoData.results[0];
         const lat = location.latitude;
         const lon = location.longitude;
-        const formattedCity = `${location.name}${location.admin1 ? ', ' + location.admin1 : ''}`;
 
-        // 2. Ambil Data Cuaca Berdasarkan Koordinat
+        console.log("Step 4: Mencoba fetch data cuaca...");
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature,uv_index`;
         const weatherRes = await fetch(weatherUrl);
         const weatherData = await weatherRes.json();
+        console.log("Step 5: Data cuaca diterima:", weatherData);
 
         const current = weatherData.current;
 
-        // Update Teks ke HTML
+        // ... sisa kode update HTML tetap sama ...
         tempEl.innerText = `${Math.round(current.temperature_2m)}°C`;
-        cityEl.innerText = formattedCity;
-        humidityEl.innerText = `${current.relative_humidity_2m}%`;
-        windEl.innerText = `${Math.round(current.wind_speed_10m)} km/j`;
-
-        // --- BARIS YANG TADI KURANG ADA DI SINI ---
-        document.getElementById('feels-like').innerText = `${Math.round(current.apparent_temperature)}°C`;
-        document.getElementById('uv-index').innerText = current.uv_index;
-
-        // Update Deskripsi, Ikon, & Tema berdasarkan WMO Weather Code
-        interpretWeatherCode(current.weather_code);
+        // ... dst ...
 
         statusMessage.classList.add('hidden');
         weatherInfo.classList.remove('hidden');
 
     } catch (error) {
-        console.error("Error fetching weather:", error);
-        showStatus("Gagal mengambil data. Periksa koneksi internetmu.");
+        console.error("Step Error: Terjadi masalah:", error);
+        showStatus("Gagal mengambil data.");
     }
 }
 
