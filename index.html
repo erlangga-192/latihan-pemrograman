@@ -8,26 +8,77 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        :root {
+            --bg-color: #090d16;
+            --bg-gradient-1: rgba(56, 189, 248, 0.12);
+            --bg-gradient-2: rgba(99, 102, 241, 0.12);
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-bg: rgba(30, 41, 59, 0.7);
+            --toggle-bg: #1e293b;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --bg-gradient-1: rgba(56, 189, 248, 0.15);
+            --bg-gradient-2: rgba(99, 102, 241, 0.15);
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-hover-bg: rgba(255, 255, 255, 0.95);
+            --toggle-bg: #e2e8f0;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #090d16;
+            background-color: var(--bg-color);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.12) 0px, transparent 50%);
-            color: #f1f5f9;
+                radial-gradient(at 0% 0%, var(--bg-gradient-1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, var(--bg-gradient-2) 0px, transparent 50%);
+            color: var(--text-main);
             min-height: 100vh;
             padding: 40px 20px;
         }
 
-        .container {
+       .container {
             max-width: 850px;
             margin: 0 auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .theme-toggle-btn {
+            background-color: var(--toggle-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: translateY(-2px);
         }
 
         header {
@@ -36,19 +87,19 @@
             animation: fadeInDown 0.8s ease-out;
         }
 
-       h1 {
-           font-size: 2.3rem;
-           font-weight: 800;
-           background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-           background-clip: text;
-           -webkit-background-clip: text;
-           -webkit-text-fill-color: transparent;
-           margin-bottom: 12px;
-           display: inline-block;
-   }
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
 
         header p {
-            color: #94a3b8;
+            color: var(--text-sub);
             font-size: 1.05rem;
             max-width: 600px;
             margin: 0 auto;
@@ -61,18 +112,17 @@
         }
 
         .project-card {
-            background: rgba(30, 41, 59, 0.4);
+            background: var(--card-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 24px 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.3s ease;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards;
         }
@@ -82,32 +132,19 @@
         .project-card:nth-child(3) { animation-delay: 0.4s; }
         .project-card:nth-child(4) { animation-delay: 0.55s; }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .project-card:hover {
             transform: translateY(-6px) scale(1.01);
             border-color: rgba(56, 189, 248, 0.4);
             box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
-            background: rgba(30, 41, 59, 0.7);
+            background: var(--card-hover-bg);
         }
 
-        .card-info {
-            flex: 1;
-        }
+        .card-info { flex: 1; }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #f8fafc;
+            color: var(--text-main);
             margin-bottom: 8px;
             display: flex;
             align-items: center;
@@ -120,13 +157,12 @@
         }
 
         .card-desc {
-            color: #94a3b8;
+            color: var(--text-sub);
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
         .btn {
-            position: relative;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -138,23 +174,18 @@
             font-weight: 600;
             font-size: 0.9rem;
             white-space: nowrap;
-            overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
 
-        .btn i {
-            transition: transform 0.3s ease;
-        }
+        .btn i { transition: transform 0.3s ease; }
 
         .btn:hover {
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
             filter: brightness(1.1);
         }
 
-        .btn:hover i {
-            transform: translateX(4px);
-        }
+        .btn:hover i { transform: translateX(4px); }
 
         @media (max-width: 640px) {
             .project-card {
@@ -165,41 +196,39 @@
                 width: 100%;
                 justify-content: center;
             }
+            .theme-toggle-btn {
+                position: relative;
+                margin: 0 auto 20px auto;
+            }
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <div class="top-bar">
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+                <span id="theme-text">Mode Gelap</span>
+            </button>
+        </div>
+
         <header>
             <h1>🚀 Portofolio Pemrograman Erlangga</h1>
             <p>Selamat datang! Ini adalah kumpulan proyek web interaktif yang telah saya buat selama belajar coding.</p>
         </header>
 
         <div class="projects-grid">
-
             <div class="project-card">
                 <div class="card-info">
                     <div class="card-title">
@@ -251,9 +280,38 @@
                     Buka Aplikasi Cuaca <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-
         </div>
     </div>
 
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'light') {
+                themeIcon.className = 'fa-solid fa-sun';
+                themeText.innerText = 'Mode Terang';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon';
+                themeText.innerText = 'Mode Gelap';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun';
+                themeText.innerText = 'Mode Terang';
+            }
+        });
+    </script>
 </body>
 </html>
