@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Icon FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <div class="calculator-container">
-        <!-- Header & Navigasi Mode -->
         <div class="calc-header">
             <span class="logo">CALCULATOR</span>
             <div class="mode-toggle">
@@ -20,16 +18,13 @@
             </div>
         </div>
 
-        <!-- Layar Display -->
         <div class="display-container">
             <div id="history-display" class="history-display"></div>
             <div id="main-display" class="main-display">0</div>
         </div>
 
-        <!-- Layout Utama: Tombol + Panel Riwayat -->
         <div class="main-body">
             
-            <!-- Panel Tombol Ilmiah (Tersembunyi secara default) -->
             <div id="scientific-pad" class="keypad scientific-pad hidden">
                 <button class="btn sci" onclick="appendMath('sin(')">sin</button>
                 <button class="btn sci" onclick="appendMath('cos(')">cos</button>
@@ -45,7 +40,6 @@
                 <button class="btn sci" onclick="appendMath('!')">x!</button>
             </div>
 
-            <!-- Panel Tombol Standar -->
             <div class="keypad standard-pad">
                 <button class="btn func" onclick="clearAll()">AC</button>
                 <button class="btn func" onclick="deleteChar()"><i class="fa-solid fa-backspace"></i></button>
@@ -75,7 +69,6 @@
 
         </div>
 
-        <!-- Sidebar Riwayat Perhitungan -->
         <div class="history-panel">
             <div class="history-header">
                 <span>Riwayat</span>

@@ -16,7 +16,6 @@ body {
     padding: 20px;
 }
 
-/* Glassmorphism Container */
 .calculator-container {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
@@ -34,7 +33,6 @@ body {
     max-width: 700px;
 }
 
-/* Header */
 .calc-header {
     display: flex;
     justify-content: space-between;
@@ -76,7 +74,6 @@ body {
     font-weight: 600;
 }
 
-/* Display Section */
 .display-container {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 16px;
@@ -102,7 +99,6 @@ body {
     overflow-x: auto;
 }
 
-/* Layout Tombol */
 .main-body {
     display: flex;
     gap: 15px;
@@ -126,7 +122,6 @@ body {
     display: none;
 }
 
-/* Styling Tombol */
 .btn {
     border: none;
     outline: none;
@@ -171,7 +166,6 @@ body {
     font-weight: 600;
 }
 
-/* Sidebar Riwayat */
 .history-panel {
     margin-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);

@@ -7,7 +7,6 @@ const scientificPad = document.getElementById('scientific-pad');
 const calcContainer = document.querySelector('.calculator-container');
 const historyList = document.getElementById('history-list');
 
-// --- PENGATURAN MODE ---
 function toggleMode(mode) {
     const btnStd = document.getElementById('btn-standard');
     const btnSci = document.getElementById('btn-scientific');
@@ -25,12 +24,10 @@ function toggleMode(mode) {
     }
 }
 
-// --- UPDATE DISPLAY ---
 function updateDisplay() {
     mainDisplay.innerText = currentExpression;
 }
 
-// --- INPUT ANGKA & OPERATOR ---
 function appendNumber(num) {
     if (currentExpression === '0' || isEvaluated) {
         currentExpression = num;
@@ -45,7 +42,6 @@ function appendOperator(op) {
     isEvaluated = false;
     const lastChar = currentExpression.slice(-1);
     
-    // Cegah penumpukan operator di akhir
     if (['+', '-', '×', '÷', '%', '^'].includes(lastChar)) {
         currentExpression = currentExpression.slice(0, -1) + op;
     } else {
@@ -95,42 +91,30 @@ function deleteChar() {
     updateDisplay();
 }
 
-// --- PARSER MATEMATIKA CANGGIH UNTUK EKSPRESI KOMPLEKS ---
 function parseComplexExpression(expr) {
     let parsed = expr;
 
-    // 1. Ubah simbol visual ke operator JavaScript
     parsed = parsed.replace(/×/g, '*').replace(/÷/g, '/');
 
-    // 2. Tangani Persentase Kompleks (contoh: 50 + 10% atau 200 * 5%)
     parsed = parsed.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
 
-    // 3. Tangani Faktorial (contoh: 5! atau (3+2)!)
     parsed = parsed.replace(/(\d+)!/g, (match, n) => factorial(parseInt(n)));
 
-    // 4. Perkalian Tersirat (Implicit Multiplication)
-    // Contoh: 2π -> 2*π | 3(4+5) -> 3*(4+5) | (2)(3) -> (2)*(3) | 5sin(30) -> 5*sin(30)
     parsed = parsed.replace(/(\d|\))(?=\(|π|e|sin|cos|tan|log|ln|√)/g, '$1*');
     parsed = parsed.replace(/(π|e)(?=\d|\()/g, '$1*');
 
-    // 5. Ubah Konstanta
     parsed = parsed.replace(/π/g, 'Math.PI').replace(/e/g, 'Math.E');
 
-    // 6. Ubah Fungsi Matematika (Trigonometri dalam derajat)
-    // Mengubah sin(x) agar menerima input Derajat (bukan Radian)
     parsed = parsed.replace(/sin\(([^()]+)\)/g, 'Math.sin(($1) * Math.PI / 180)');
     parsed = parsed.replace(/cos\(([^()]+)\)/g, 'Math.cos(($1) * Math.PI / 180)');
     parsed = parsed.replace(/tan\(([^()]+)\)/g, 'Math.tan(($1) * Math.PI / 180)');
     
-    // Fungsi Logaritma & Akar
     parsed = parsed.replace(/log\(/g, 'Math.log10(');
     parsed = parsed.replace(/ln\(/g, 'Math.log(');
     parsed = parsed.replace(/√\(/g, 'Math.sqrt(');
 
-    // Operasi Pangkat (x^y -> Math.pow atau **)
     parsed = parsed.replace(/\^/g, '**');
 
-    // 7. Otomatis Otomatis Tutup Tanda Kurung jika pengguna lupa (contoh: "sin(30" -> "sin(30)")
     const openBrackets = (parsed.match(/\(/g) || []).length;
     const closeBrackets = (parsed.match(/\)/g) || []).length;
     if (openBrackets > closeBrackets) {
@@ -140,7 +124,6 @@ function parseComplexExpression(expr) {
     return parsed;
 }
 
-// Fungsi Bantuan Faktorial
 function factorial(n) {
     if (n < 0) return NaN;
     if (n === 0 || n === 1) return 1;
@@ -149,24 +132,19 @@ function factorial(n) {
     return res;
 }
 
-// --- LOGIKA EKSEKUSI KALKULASI ---
 function calculate() {
     try {
         let rawExpr = currentExpression;
         historyDisplay.innerText = rawExpr + ' =';
 
-        // Proses parsing ekspresi kompleks
         let parsedExpr = parseComplexExpression(rawExpr);
 
-        // Eksekusi perhitungan
         let result = Function(`'use strict'; return (${parsedExpr})`)();
 
-        // Validasi hasil
         if (!isFinite(result) || isNaN(result)) {
             throw new Error("Invalid Output");
         }
 
-        // Bulatkan desimal panjang agar tidak berantakan di layar
         if (typeof result === 'number' && !Number.isInteger(result)) {
             result = Number(Math.round(result + 'e8') + 'e-8');
         }
@@ -187,7 +165,6 @@ function calculate() {
     }
 }
 
-// --- PANEL RIWAYAT ---
 function addHistory(expr, result) {
     const emptyMsg = document.querySelector('.empty-msg');
     if (emptyMsg) emptyMsg.remove();
@@ -209,7 +186,6 @@ function clearHistoryList() {
     historyList.innerHTML = '<li class="empty-msg">Belum ada riwayat</li>';
 }
 
-// --- DUKUNGAN KEYBOARD ---
 document.addEventListener('keydown', (e) => {
     if ((e.key >= '0' && e.key <= '9') || e.key === '.') appendNumber(e.key);
     
