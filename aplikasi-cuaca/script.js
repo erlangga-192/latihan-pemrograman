@@ -1,4 +1,3 @@
-// DOM Elements
 const cityInput = document.getElementById('city-input');
 const searchBtn = document.getElementById('search-btn');
 const weatherInfo = document.getElementById('weather-info');
@@ -12,7 +11,6 @@ const humidityEl = document.getElementById('humidity');
 const windEl = document.getElementById('wind-speed');
 const weatherIcon = document.getElementById('weather-icon');
 
-// 1. Cari Koordinat Kota (Geocoding API Open-Meteo)
 async function checkWeather(cityName) {
     console.log("Step 1: Fungsi checkWeather dimulai dengan kota:", cityName);
     if (!cityName) return;
@@ -43,10 +41,11 @@ async function checkWeather(cityName) {
 
         const current = weatherData.current;
 
-        // ... sisa kode update HTML tetap sama ...
         tempEl.innerText = `${Math.round(current.temperature_2m)}°C`;
-        // ... dst ...
-
+        descEl.innerText = interpretWeatherCode(current.weather_code);
+        cityEl.innerText = location.name;
+        humidityEl.innerText = `${current.relative_humidity_2m}%`;
+        windEl.innerText = `${current.wind_speed_10m} m/s`;
         statusMessage.classList.add('hidden');
         weatherInfo.classList.remove('hidden');
 
@@ -56,46 +55,39 @@ async function checkWeather(cityName) {
     }
 }
 
-// Helper Konversi Kode Cuaca WMO ke Tema & Ikon
 function interpretWeatherCode(code) {
     document.body.className = '';
 
-    // Clear / Cerah
     if (code === 0) {
         descEl.innerText = "Cerah";
         document.body.classList.add('theme-clear');
         weatherIcon.className = 'fa-solid fa-sun';
         weatherIcon.style.color = '#fde047';
     } 
-    // Clouds / Berawan
     else if (code >= 1 && code <= 3) {
         descEl.innerText = "Berawan";
         document.body.classList.add('theme-clouds');
         weatherIcon.className = 'fa-solid fa-cloud';
         weatherIcon.style.color = '#cbd5e1';
     } 
-    // Rain / Hujan
     else if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) {
         descEl.innerText = "Hujan";
         document.body.classList.add('theme-rain');
         weatherIcon.className = 'fa-solid fa-cloud-showers-heavy';
         weatherIcon.style.color = '#38bdf8';
     } 
-    // Thunderstorm / Badai
     else if (code >= 95) {
         descEl.innerText = "Badai Petir";
         document.body.classList.add('theme-thunderstorm');
         weatherIcon.className = 'fa-solid fa-cloud-bolt';
         weatherIcon.style.color = '#facc15';
     } 
-    // Snow / Salju
     else if (code >= 71 && code <= 77) {
         descEl.innerText = "Salju";
         document.body.classList.add('theme-snow');
         weatherIcon.className = 'fa-regular fa-snowflake';
         weatherIcon.style.color = '#f8fafc';
     } 
-    // Default
     else {
         descEl.innerText = "Kabut / Berkabut";
         document.body.classList.add('theme-clouds');
@@ -104,14 +96,12 @@ function interpretWeatherCode(code) {
     }
 }
 
-// Helper Status
 function showStatus(text) {
     statusText.innerText = text;
     statusMessage.classList.remove('hidden');
     weatherInfo.classList.add('hidden');
 }
 
-// Event Listeners
 searchBtn.addEventListener('click', () => {
     checkWeather(cityInput.value.trim());
 });
@@ -122,7 +112,6 @@ cityInput.addEventListener('keypress', (e) => {
     }
 });
 
-// Interaksi tombol chip setelah HTML siap
 document.addEventListener('DOMContentLoaded', () => {
     
     const cityChips = document.querySelectorAll('.city-chip');
