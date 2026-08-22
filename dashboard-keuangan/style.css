@@ -22,7 +22,6 @@ body {
     gap: 24px;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -41,7 +40,6 @@ body {
     margin-top: 4px;
 }
 
-/* Ringkasan Kartu */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -90,7 +88,6 @@ body {
 .income .amount { color: #22c55e; }
 .expense .amount { color: #ef4444; }
 
-/* Main Content Layout */
 .main-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -121,7 +118,6 @@ body {
     justify-content: space-between;
 }
 
-/* Form Input */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -165,7 +161,6 @@ select.input-field {
     color: #fff;
 }
 
-/* Chart Area */
 .chart-container {
     position: relative;
     height: 220px;
@@ -173,7 +168,6 @@ select.input-field {
     justify-content: center;
 }
 
-/* Transaction List */
 .transaction-list {
     list-style: none;
     max-height: 240px;
@@ -237,7 +231,6 @@ select.input-field {
     color: #ef4444;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }

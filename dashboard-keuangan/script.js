@@ -1,15 +1,12 @@
-// State Data
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let financeChart = null;
 
-// Element DOM
 const totalBalanceEl = document.getElementById('total-balance');
 const totalIncomeEl = document.getElementById('total-income');
 const totalExpenseEl = document.getElementById('total-expense');
 const txListEl = document.getElementById('tx-list');
 const txForm = document.getElementById('tx-form');
 
-// Format Rupiah
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
@@ -18,7 +15,6 @@ function formatRupiah(number) {
     }).format(number);
 }
 
-// Inisialisasi Grafik Chart.js
 function initChart(income, expense) {
     const ctx = document.getElementById('financeChart').getContext('2d');
     
@@ -50,9 +46,7 @@ function initChart(income, expense) {
     });
 }
 
-// Update Tampilan Dashboard
 function updateUI() {
-    // Hitung Ringkasan
     const income = transactions
         .filter(t => t.type === 'income')
         .reduce((acc, t) => acc + t.amount, 0);
@@ -63,12 +57,10 @@ function updateUI() {
 
     const balance = income - expense;
 
-    // Render Kartu Teks
     totalBalanceEl.innerText = formatRupiah(balance);
     totalIncomeEl.innerText = formatRupiah(income);
     totalExpenseEl.innerText = formatRupiah(expense);
 
-    // Render List Transaksi
     txListEl.innerHTML = '';
     
     if (transactions.length === 0) {
@@ -98,7 +90,6 @@ function updateUI() {
         });
     }
 
-    // Update atau Buat Grafik Baru
     if (financeChart) {
         financeChart.data.datasets[0].data = [income, expense];
         financeChart.update();
@@ -106,11 +97,9 @@ function updateUI() {
         initChart(income, expense);
     }
 
-    // Simpan ke LocalStorage
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
-// Tambah Transaksi
 txForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -133,25 +122,21 @@ txForm.addEventListener('submit', (e) => {
 
     transactions.push(newTx);
     
-    // Reset Form
     document.getElementById('desc').value = '';
     document.getElementById('amount').value = '';
 
     updateUI();
 });
 
-// Hapus Transaksi
 function deleteTransaction(id) {
     transactions = transactions.filter(t => t.id !== id);
     updateUI();
 }
 
-// Helper Sanitasi Teks
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.innerText = text;
     return div.innerHTML;
 }
 
-// Jalankan saat pertama dimuat
 updateUI();

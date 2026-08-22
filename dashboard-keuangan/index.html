@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Dashboard</title>
-    <!-- Font & Icon External -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Hubungkan File CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="dashboard-container">
-        <!-- Header -->
         <div class="header">
             <div>
                 <h1>Finance Tracker</h1>
@@ -24,7 +20,6 @@
             </div>
         </div>
 
-        <!-- Cards Ringkasan -->
         <div class="cards-grid">
             <div class="card balance">
                 <div class="card-info">
@@ -49,9 +44,7 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-grid">
-            <!-- Form Input Transaksi -->
             <div class="panel">
                 <h2 class="panel-title">Tambah Transaksi</h2>
                 <form id="tx-form" class="form-group">
@@ -65,7 +58,6 @@
                 </form>
             </div>
 
-            <!-- Grafik Donat (Chart.js) -->
             <div class="panel">
                 <h2 class="panel-title">Alokasi Keuangan</h2>
                 <div class="chart-container">
@@ -74,14 +66,12 @@
             </div>
         </div>
 
-        <!-- Riwayat Transaksi -->
         <div class="panel">
             <h2 class="panel-title">Riwayat Transaksi</h2>
             <ul id="tx-list" class="transaction-list"></ul>
         </div>
     </div>
 
-    <!-- Hubungkan File JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
