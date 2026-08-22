@@ -35,7 +35,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Header */
         .header h2 {
             font-size: 1.5rem;
             font-weight: 600;
@@ -89,7 +88,6 @@
             color: #fff;
         }
 
-        /* Filter */
         .filter-group {
             display: flex;
             gap: 8px;
@@ -115,7 +113,6 @@
             background: rgba(56, 189, 248, 0.15);
         }
 
-        /* Todo List */
         .todo-list {
             list-style: none;
             max-height: 280px;
@@ -194,7 +191,6 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* Footer */
         .footer {
             display: flex;
             justify-content: space-between;
@@ -223,29 +219,24 @@
 <body>
 
     <div class="todo-container">
-        <!-- Header -->
         <div class="header">
             <h2>Tasks</h2>
             <p id="date-display"></p>
         </div>
 
-        <!-- Input Section -->
         <div class="input-group">
             <input type="text" id="todo-input" placeholder="Tambah tugas baru..." autocomplete="off">
             <button id="add-btn">+</button>
         </div>
 
-        <!-- Filter Tab -->
         <div class="filter-group">
             <button class="filter-btn active" id="filter-all">Semua</button>
             <button class="filter-btn" id="filter-active">Belum Selesai</button>
             <button class="filter-btn" id="filter-completed">Selesai</button>
         </div>
 
-        <!-- Todo List -->
         <ul id="todo-list" class="todo-list"></ul>
 
-        <!-- Footer Info -->
         <div class="footer">
             <span id="task-count">0 tugas tersisa</span>
             <button id="clear-btn" class="clear-btn">Hapus yang selesai</button>
@@ -256,7 +247,6 @@
         let todos = JSON.parse(localStorage.getItem('todos')) || [];
         let currentFilter = 'all';
 
-        // DOM Elements
         const todoInput = document.getElementById('todo-input');
         const addBtn = document.getElementById('add-btn');
         const todoList = document.getElementById('todo-list');
@@ -268,7 +258,6 @@
         const filterActive = document.getElementById('filter-active');
         const filterCompleted = document.getElementById('filter-completed');
 
-        // Tanggal
         function setDate() {
             const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
             const today = new Date();
@@ -308,7 +297,6 @@
             localStorage.setItem('todos', JSON.stringify(todos));
         }
 
-        // Tambah Task
         function addTodo() {
             const text = todoInput.value.trim();
             if (!text) return;
@@ -323,19 +311,16 @@
             render();
         }
 
-        // Toggle Status Task
         function toggleTodo(id) {
             todos = todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
             render();
         }
 
-        // Hapus Task
         function deleteTodo(id) {
             todos = todos.filter(t => t.id !== id);
             render();
         }
 
-        // Filter Function
         function setFilter(filter, activeBtn) {
             currentFilter = filter;
             [filterAll, filterActive, filterCompleted].forEach(btn => btn.classList.remove('active'));
@@ -343,7 +328,6 @@
             render();
         }
 
-        // Event Listeners
         addBtn.addEventListener('click', addTodo);
         
         todoInput.addEventListener('keypress', (e) => {
@@ -370,7 +354,6 @@
             return div.innerHTML;
         }
 
-        // Inisialisasi
         setDate();
         render();
     </script>
