@@ -36,7 +36,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
 
         body {
@@ -50,7 +50,7 @@
             padding: 40px 20px;
         }
 
-       .container {
+        .container {
             max-width: 850px;
             margin: 0 auto;
         }
@@ -59,6 +59,7 @@
             display: flex;
             justify-content: flex-end;
             margin-bottom: 20px;
+            opacity: 0;
         }
 
         .theme-toggle-btn {
@@ -74,7 +75,7 @@
             font-size: 0.85rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
         }
 
         .theme-toggle-btn:hover {
@@ -83,8 +84,8 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease-out;
+            margin-bottom: 30px;
+            opacity: 0;
         }
 
         h1 {
@@ -106,9 +107,44 @@
             line-height: 1.6;
         }
 
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+            opacity: 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .search-input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
         .projects-grid {
-            display: grid;
-            gap: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
         }
 
         .project-card {
@@ -122,18 +158,14 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
+            
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.25s; }
-        .project-card:nth-child(3) { animation-delay: 0.4s; }
-        .project-card:nth-child(4) { animation-delay: 0.55s; }
-
         .project-card:hover {
-            transform: translateY(-6px) scale(1.01);
+            transform: translateY(-4px);
             border-color: rgba(56, 189, 248, 0.4);
             box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
             background: var(--card-hover-bg);
@@ -174,18 +206,23 @@
             font-weight: 600;
             font-size: 0.9rem;
             white-space: nowrap;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
 
         .btn i { transition: transform 0.3s ease; }
-
-        .btn:hover {
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-            filter: brightness(1.1);
-        }
-
+        .btn:hover { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5); filter: brightness(1.1); }
         .btn:hover i { transform: translateX(4px); }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--text-sub);
+            padding: 40px 0;
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
 
         @media (max-width: 640px) {
             .project-card {
@@ -196,37 +233,37 @@
                 width: 100%;
                 justify-content: center;
             }
-            .theme-toggle-btn {
-                position: relative;
-                margin: 0 auto 20px auto;
-            }
         }
 
-        @keyframes fadeInDown {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        ::-webkit-scrollbar {
+            display: none;
         }
 
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="top-bar">
+        <div class="top-bar" id="top-bar">
             <button id="theme-toggle" class="theme-toggle-btn">
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
                 <span id="theme-text">Mode Gelap</span>
             </button>
         </div>
 
-        <header>
+        <header id="main-header">
             <h1>🚀 Portofolio Pemrograman Erlangga</h1>
             <p>Selamat datang! Ini adalah kumpulan proyek web interaktif yang telah saya buat selama belajar coding.</p>
         </header>
+
+        <div class="search-container" id="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="Cari proyek (contoh: cuaca, kalkulator)...">
+        </div>
 
         <div class="projects-grid">
             <div class="project-card">
@@ -281,6 +318,11 @@
                 </a>
             </div>
         </div>
+
+        <div id="no-results" class="no-results">
+            <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; margin-bottom: 10px; opacity: 0.5;"></i>
+            <p>Proyek yang kamu cari tidak ditemukan.</p>
+        </div>
     </div>
 
     <script>
@@ -299,7 +341,6 @@
 
         themeToggleBtn.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
-            
             if (theme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
@@ -310,6 +351,103 @@
                 localStorage.setItem('theme', 'light');
                 themeIcon.className = 'fa-solid fa-sun';
                 themeText.innerText = 'Mode Terang';
+            }
+        });
+
+        const topBar = document.getElementById('top-bar');
+        const mainHeader = document.getElementById('main-header');
+        const searchBox = document.getElementById('search-box');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        const headerElements = [topBar, mainHeader, searchBox];
+        const smoothEasing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+        headerElements.forEach((el, index) => {
+            el.animate([
+                { opacity: 0, transform: 'translateY(-25px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], {
+                duration: 850,
+                delay: index * 140,
+                easing: smoothEasing,
+                fill: 'forwards'
+            });
+        });
+
+        projectCards.forEach((card, index) => {
+            card.animate([
+                { opacity: 0, transform: 'translateY(35px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], {
+                duration: 850,
+                delay: (headerElements.length * 140) + (index * 120),
+                easing: smoothEasing,
+                fill: 'forwards'
+            });
+        });
+
+        const searchInput = document.getElementById('search-input');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            const firstPositions = new Map();
+            projectCards.forEach(card => {
+                if (card.style.display !== 'none') {
+                    firstPositions.set(card, card.getBoundingClientRect());
+                }
+            });
+
+            let visibleCount = 0;
+
+            projectCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            projectCards.forEach(card => {
+                if (card.style.display !== 'none') {
+                    const firstPos = firstPositions.get(card);
+                    const lastPos = card.getBoundingClientRect();
+
+                    if (firstPos) {
+                        const deltaY = firstPos.top - lastPos.top;
+                        
+                        if (deltaY !== 0) {
+                            card.animate([
+                                { transform: `translateY(${deltaY}px)` },
+                                { transform: 'translateY(0)' }
+                            ], {
+                                duration: 500,
+                                easing: smoothEasing
+                            });
+                        }
+                    } else {
+                        card.animate([
+                            { opacity: 0, transform: 'scale(0.95) translateY(10px)' },
+                            { opacity: 1, transform: 'scale(1) translateY(0)' }
+                        ], {
+                            duration: 450,
+                            easing: 'ease-out'
+                        });
+                    }
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+                requestAnimationFrame(() => noResults.style.opacity = '1');
+            } else {
+                noResults.style.opacity = '0';
+                noResults.style.display = 'none';
             }
         });
     </script>
